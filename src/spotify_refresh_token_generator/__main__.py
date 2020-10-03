@@ -1,3 +1,5 @@
+from typing import List
+
 import prompt
 import spotipy
 
@@ -7,15 +9,21 @@ def main():
         prompt.string("Spotify username: "),
         prompt.string("Client ID: "),
         prompt.string("Client Secret: "),
-        prompt.string("Redirect URI: "),
-        prompt.string("Scope: ")
+        prompt.string("Redirect URI: ")
     ))
 
 
-def __generate_token(username: str, client_id: str, client_secret: str, redirect_uri: str, scope: str) -> str:
+def __generate_token(username: str, client_id: str, client_secret: str, redirect_uri: str) -> str:
+    scopes: List[str] = [
+        'user-library-read',
+        'playlist-read-public',
+        'playlist-read-private',
+        'playlist-modify-public',
+        'playlist-modify-private'
+    ]
     return spotipy.util.prompt_for_user_token(
         username,
-        scope,
+        ' '.join(scopes),
         client_id=client_id,
         client_secret=client_secret,
         redirect_uri=redirect_uri,
