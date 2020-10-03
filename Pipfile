@@ -14,6 +14,7 @@ pipenv-setup = "*"
 [packages]
 spotipy = "*"
 python-dotenv = "*"
+prompt = "*"
 
 [requires]
 python_version = "3.7"
