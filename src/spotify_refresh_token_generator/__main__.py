@@ -7,14 +7,15 @@ def main():
         prompt.string("Spotify username: "),
         prompt.string("Client ID: "),
         prompt.string("Client Secret: "),
-        prompt.string("Redirect URI: ")
+        prompt.string("Redirect URI: "),
+        prompt.string("Scope: ")
     ))
 
 
-def __generate_token(username: str, client_id: str, client_secret: str, redirect_uri: str) -> str:
+def __generate_token(username: str, client_id: str, client_secret: str, redirect_uri: str, scope: str) -> str:
     return spotipy.util.prompt_for_user_token(
         username,
-        '',
+        scope,
         client_id=client_id,
         client_secret=client_secret,
         redirect_uri=redirect_uri,
