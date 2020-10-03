@@ -16,7 +16,6 @@ def main():
 def __generate_token(username: str, client_id: str, client_secret: str, redirect_uri: str) -> str:
     scopes: List[str] = [
         'user-library-read',
-        'playlist-read-public',
         'playlist-read-private',
         'playlist-modify-public',
         'playlist-modify-private'
