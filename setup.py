@@ -18,7 +18,7 @@ setup(
     packages=find_packages('src'),
     entry_points={
         'console_scripts': [
-            'generate-spotify-token = spotify_refresh_token_generator.__main__'
+            'generate-spotify-token = spotify_refresh_token_generator.__main__:main'
         ]
     },
     classifiers=[
