@@ -5,7 +5,7 @@ import spotipy
 
 
 def main():
-    print('\nToken: %s' % __generate_token(
+    print('\nRefresh Token: %s' % __generate_token(
         prompt.string("Spotify username: "),
         prompt.string("Client ID: "),
         prompt.string("Client Secret: "),
@@ -20,14 +20,17 @@ def __generate_token(username: str, client_id: str, client_secret: str, redirect
         'playlist-modify-public',
         'playlist-modify-private'
     ]
-    return spotipy.util.prompt_for_user_token(
-        username,
-        ' '.join(scopes),
-        client_id=client_id,
-        client_secret=client_secret,
-        redirect_uri=redirect_uri,
-        show_dialog=False
+    sp_oauth = spotipy.SpotifyOAuth(
+        client_id,
+        client_secret,
+        redirect_uri,
+        scope=' '.join(scopes),
+        username=username,
+        show_dialog=True
     )
+    code = sp_oauth.get_auth_response()
+    token = sp_oauth.get_access_token(code)
+    return token['refresh_token']
 
 
 if __name__ == '__main__':
