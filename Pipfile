@@ -4,6 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+setuptools = "*"
+twine = "*"
+secretstorage = ">=3.0"
+importlib-metadata = "*"
+bumpversion = "*"
+pipenv-setup = "*"
 
 [packages]
 spotipy = "*"

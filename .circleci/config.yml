@@ -1,0 +1,43 @@
+version: 2.0
+
+jobs:
+  build:
+    filters:
+      branches:
+        only:
+          - master
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/python:3.7.8
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Update apt
+          command: |
+            sudo apt-get -y -qq update
+      - run:
+          name: Install Pipenv
+          command: |
+            sudo apt-get -y -qq install python-dev python-pip
+            sudo pip install pipenv --upgrade
+      - run:
+          name: Setup Pipenv
+          command: |
+            pipenv --python 3.7.8
+            pipenv install -d
+      - run:
+          name: Bump version number and push
+          command: |
+            mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+            chmod +x scripts/bump_version.sh
+            ./scripts/bump_version.sh
+      - run:
+          name: Distribute
+          command: |
+            pipenv run pipenv-setup sync
+            pipenv run python setup.py sdist bdist_wheel
+            pipenv run python -m twine upload -r pypi -u "${PYPI_USERNAME}" -p "${PYPI_PASSWORD}" --verbose dist/*
