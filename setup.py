@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='spotify-refresh-token-generator',
-    version='0.0.2',
+    version='0.0.3',
     author='Aaron Mamparo',
     author_email='aaronmamparo@gmail.com',
     description='A command-line utility to generate a long-term refresh token for the Spotify API',
