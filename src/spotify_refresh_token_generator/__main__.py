@@ -18,7 +18,8 @@ def __generate_token(username: str, client_id: str, client_secret: str, redirect
         'user-library-read',
         'playlist-read-private',
         'playlist-modify-public',
-        'playlist-modify-private'
+        'playlist-modify-private',
+        'ugc-image-upload'
     ]
     sp_oauth = spotipy.SpotifyOAuth(
         client_id,
